@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viral Prompt Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #007bff;
+    }
+    .search {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 8px 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>✨ Viral Prompt Hub ✨</h1>
+  <input type="text" id="search" class="search" placeholder="Search prompts...">
+
+  <div id="prompts"></div>
+
+  <script>
+    const prompts = [
+      { title: "Cinematic AI Photo", category: "Images", text: "Create a hyper-realistic cinematic portrait with dramatic lighting, 8k quality." },
+      { title: "Viral TikTok Hook", category: "Videos", text: "Write a 10-second TikTok script that starts with a shocking fact and ends with a cliffhanger." },
+      { title: "AI Travel Reel", category: "Videos", text: "Generate a travel montage script for Instagram Reels with fast cuts and fun captions." }
+    ];
+
+    const container = document.getElementById("prompts");
+    const search = document.getElementById("search");
+
+    function renderPrompts(list) {
+      container.innerHTML = "";
+      list.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2>${p.title}</h2>
+          <p><strong>Category:</strong> ${p.category}</p>
+          <p>${p.text}</p>
+          <button onclick="copyText('${p.text}')">Copy Prompt</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text);
+      alert("Prompt copied!");
+    }
+
+    search.addEventListener("input", e => {
+      const value = e.target.value.toLowerCase();
+      const filtered = prompts.filter(
+        p => p.title.toLowerCase().includes(value) || p.category.toLowerCase().includes(value)
+      );
+      renderPrompts(filtered);
+    });
+
+    renderPrompts(prompts);
+  </script>
+</body>
+</html>
